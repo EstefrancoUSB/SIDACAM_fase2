@@ -20,7 +20,6 @@ condicion = 1;      %Flag
 
 % Mientras "condicion sea "1" el programa funcionara, al tomar el valor de
 % "2" se finaliza
-
 while condicion == 1
     
     modo = menu('Escoja la modalidad de funcionamiento del programa.',...
@@ -30,33 +29,24 @@ while condicion == 1
     switch modo
         %% Grabacion de ruido de fondo
         case 1
-            time = input('Digite cuanto tiempo (en segundos) desea grabar ruido de fondo: ');
+            time = input('Digite cuanto tiempo desea grabar ruido de fondo [Segundos]: ');
             % Time Debugger
-            while ischar(time) || time<0 || time==0
-                if ischar(time)
-                    disp('Ha ingresado letras en vez de numeros')
-                else
-                    disp('El tiempo de duracion no puede ser menor o igual a cero')
-                end
-                time = ...
-                    input('Digite cuanto tiempo (en segundos) desea grabar ruido de fondo: ');
+            while ischar(time) || time<=0
+                disp('El tiempo de duracion debe ser UN NUMERO mayor que cero')
+                time = input('Digite cuanto tiempo desea grabar ruido de fondo [Segundos]: ');
             end
-            Frec_Muestreo = input('Defina la frecuencia de muestreo de la señal: ');
+            
+            Frec_Muestreo = input('Defina la frecuencia de muestreo de la señal [Hz]: ');
             % Frec_Muestreo Debugger
-            while ischar(Frec_Muestreo) || Frec_Muestreo<0 || Frec_Muestreo==0
-                if ischar(Frec_Muestreo)
-                    disp('Ha ingresado letras en vez de numeros')
-                else
-                    disp('Ingrese una frecuencia de muestreo valida')
-                end
-                Frec_Muestreo = ...
-                    input('Defina la frecuencia de muestreo de la señal: ');
+            while ischar(Frec_Muestreo) || Frec_Muestreo<=0
+                disp('La frecuencia de muestreo debe ser UN NUMERO mayor que cero')
+                Frec_Muestreo = input('Defina la frecuencia de muestreo de la señal [Hz]: ');
             end
-            date=clock;  %Guarda la fecha y la hora actual desde el reloj interno del PC
-            %Nombre para el ruido ambiente
-           ambient_noise = input('Defina un nombre para la grabacion de ruido ambiente: ','s');
-           ambient_noise = [ambient_noise '_' num2str(date(1)) '_' num2str(date(2)) '_'...
-                num2str(date(3)) '_' num2str(date(4)) '_' num2str(date(5)) '.wav']
+            
+            date=clock;  %Guarda la fecha y la hora actual del PC
+            ambient_noise = ['ruido_' num2str(date(1)) '_' num2str(date(2)) '_'...
+                num2str(date(3)) '_' num2str(date(4)) '_' num2str(date(5)) '.wav'];
+            fprintf('grabando en %s ...',ambient_noise)
             [Ruido_fondo, Hora_fondo] = Grabacion(time,Frec_Muestreo,ambient_noise);
             
             %% Extraccion de Firmas Acusticas
@@ -66,11 +56,12 @@ while condicion == 1
             %existe, de lo contrario la almacena
             posicion = find(strcmp(info_barcos{1,1}, code));
             if posicion ~= 0
-                Mensaje = ['La embarcacion ya existe en la posicion ', num2str(posicion)];
-                disp(Mensaje)
+                fprintf('La embarcacion ya existe en la posicion %s \n', num2str(posicion))
+                fprintf('Numero de grabaciones: %i \n', info_barcos{3,1}(posicion));
             else
                 info_barcos{1,1}{find(strcmp(info_barcos{1,1}, '0'),1)} = code;
             end
+            
             %Se llama la funcion que extrae la firma acustica de la
             %embarcacion
             [Max_Bandas_dB, Frec_Max,Frecuencias] = Firma_acustica(code, Dim_fft,...
@@ -86,9 +77,3 @@ while condicion == 1
             condicion = 2;
     end
 end
-
-
-
-
-
-
