@@ -36,11 +36,11 @@ while condicion == 1
                 time = input('Digite cuanto tiempo desea grabar ruido de fondo [Segundos]: ');
             end
             
-            Frec_Muestreo = input('Defina la frecuencia de muestreo de la señal [Hz]: ');
+            Frec_Muestreo = input('Defina la frecuencia de muestreo de la seÃ±al [Hz]: ');
             % Frec_Muestreo Debugger
             while ischar(Frec_Muestreo) || Frec_Muestreo<=0
                 disp('La frecuencia de muestreo debe ser UN NUMERO mayor que cero')
-                Frec_Muestreo = input('Defina la frecuencia de muestreo de la señal [Hz]: ');
+                Frec_Muestreo = input('Defina la frecuencia de muestreo de la seÃ±al [Hz]: ');
             end
             
             date=clock;  %Guarda la fecha y la hora actual del PC
@@ -52,22 +52,12 @@ while condicion == 1
             %% Extraccion de Firmas Acusticas
         case 2
             code = input('Ingrese nombre o codigo de la embarcacion: ', 's');
-            %Analiza en la database si el codigo de la embarcacion ya
-            %existe, de lo contrario la almacena
-            posicion = find(strcmp(info_barcos{1,1}, code));
-            if posicion ~= 0
-                fprintf('La embarcacion ya existe en la posicion %s \n', num2str(posicion))
-                fprintf('Numero de grabaciones: %i \n', info_barcos{3,1}(posicion));
-            else
-                info_barcos{1,1}{find(strcmp(info_barcos{1,1}, '0'),1)} = code;
-            end
             
             %Se llama la funcion que extrae la firma acustica de la
             %embarcacion
             [Max_Bandas_dB, Frec_Max,Frecuencias] = Firma_acustica(code, Dim_fft,...
                 Frec_Corte1, N_Frec,Step);
-            info_barcos{2,1}{find(strcmp(info_barcos{1,1}, '0'),1)} = [Max_Bandas_dB;Frec_Max];
-            save('info_barcos')
+            
             
             %% Deteccion de Blancos
         case 3
@@ -77,3 +67,9 @@ while condicion == 1
             condicion = 2;
     end
 end
+
+
+
+
+
+
