@@ -17,7 +17,8 @@ Frec_Corte1 = 300;  %Frecuencia minima de interes. [Hz]
 N_Frec = 35;        %Numero de frecuencias para determinas firma acustica. []
 Step=50;            %Paso del filtro pasabanda [Hz]
 condicion = 1;      %Flag
-
+time = 10;
+Frec_Muestreo = 44100;
 % Mientras "condicion sea "1" el programa funcionara, al tomar el valor de
 % "2" se finaliza
 while condicion == 1
@@ -29,57 +30,58 @@ while condicion == 1
     switch modo
         %% Grabacion de ruido de fondo
         case 1
+            load Base_ruidos
+            
             time = input('Digite cuanto tiempo desea grabar ruido de fondo [Segundos]: ');
             % Time Debugger
-            while ischar(time) || time<=0
+            while ischar(time) || time <=0
                 disp('El tiempo de duracion debe ser UN NUMERO mayor que cero')
                 time = input('Digite cuanto tiempo desea grabar ruido de fondo [Segundos]: ');
             end
             
             Frec_Muestreo = input('Defina la frecuencia de muestreo de la señal [Hz]: ');
             % Frec_Muestreo Debugger
-            while ischar(Frec_Muestreo) || Frec_Muestreo<=0
+            while ischar(Frec_Muestreo) || Frec_Muestreo <=0
                 disp('La frecuencia de muestreo debe ser UN NUMERO mayor que cero')
                 Frec_Muestreo = input('Defina la frecuencia de muestreo de la señal [Hz]: ');
             end
             
-            date=clock;  %Guarda la fecha y la hora actual del PC
-            ambient_noise = ['ruido_' num2str(date(1)) '_' num2str(date(2)) '_'...
-                num2str(date(3)) '_' num2str(date(4)) '_' num2str(date(5)) '.wav'];
-            fprintf('grabando en %s ...',ambient_noise)
-            [Ruido_fondo, Hora_fondo] = Grabacion(time,Frec_Muestreo,ambient_noise);
+            date=datestr(now);  %Guarda la fecha y la hora actual del PC
+            Name_data = ['Ruido_', date(1:6), '_' date(13:14)];
+            
+            [Ruido_fondo, date] = Grabacion(time,Frec_Muestreo);
+            date = str2double(date(13:14))+ 1;
+            date = num2str(date);
+            Name_data = [Name_data, '-', date];
+            
+            pos = find((strcmp(Base_ruidos{1,1}, '0')),1);
+            Base_ruidos{1}{pos} = Name_data;
+            Base_ruidos{2}{pos}= Ruido_fondo';
+            
+            save('Base_ruidos','Base_ruidos')
+            
+                      
+            
             
             %% Extraccion de Firmas Acusticas
         case 2
             code = input('Ingrese nombre o codigo de la embarcacion: ', 's');
-            %Analiza en la database si el codigo de la embarcacion ya
-            %existe, de lo contrario la almacena
-            posicion = find(strcmp(info_barcos{1,1}, code));
-            if posicion ~= 0
-                fprintf('La embarcacion ya existe en la posicion %s \n', num2str(posicion))
-                fprintf('Numero de grabaciones: %i \n', info_barcos{3,1}(posicion));
-            else
-                info_barcos{1,1}{find(strcmp(info_barcos{1,1}, '0'),1)} = code;
-            end
             
             %Se llama la funcion que extrae la firma acustica de la
             %embarcacion
-            [Max_Bandas_dB, Frec_Max,Frecuencias] = Firma_acustica(code, Dim_fft,...
+            
+            [Max_Bandas_dB, Frec_Max] = Maximo_bandas(code, Dim_fft,...
                 Frec_Corte1, N_Frec,Step);
-            info_barcos{2,1}{find(strcmp(info_barcos{1,1}, '0'),1)} = [Max_Bandas_dB;Frec_Max];
-            save('info_barcos')
+            
             
             %% Deteccion de Blancos
         case 3
-            [arg_salida3] = Deteccion(argumen_entrada3);
+            
+            [Embarcacion] = Deteccion(time,Frec_Muestreo,Dim_fft, Frec_Corte1, N_Frec, Step);
+            fprintf('La embarcacion capturada puede ser: %s \n', Embarcacion)
+            
             
         case 4
             condicion = 2;
     end
 end
-
-
-
-
-
-
