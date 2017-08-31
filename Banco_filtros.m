@@ -7,8 +7,8 @@ function [Max_Bandas_dB,Frec_Max] = Banco_filtros (S_Blanco,Frec_Muestreo, N_Fre
 % Luis Esteban Gomez, estebang90@gmail.com
 % David Perez Zapata, b_hh@hotmail.es
 %
-% Función encargada de extraer los niveles máximos y las frecuencias a las
-% que corresponden cada máximo de la señal de entrada.
+% FunciÃ³n encargada de extraer los niveles mÃ¡ximos y las frecuencias a las
+% que corresponden cada mÃ¡ximo de la seÃ±al de entrada.
 
 %ENTRADAS
 %S_Blanco         String, contiene el codigo de la embarcacion.
@@ -35,10 +35,10 @@ for ContMaximo = 1:N_Frec
         Orden_Filtro,Frec_Corte1,Frec_Corte2,Frec_Muestreo);
     Filtro = design(Param_Filtro,'butter');
     
-    % Filtro de la señal
+    % Filtro de la seÃ±al
     S_Blanco_Filtrada = filter(Filtro,S_Blanco);
     
-    % Densidad Espectral de Potencia de la señal filtrada
+    % Densidad Espectral de Potencia de la seÃ±al filtrada
     [pxx,Frecuencias]=pwelch(S_Blanco_Filtrada,hamming(Dim_fft),[], [], Frec_Muestreo);
     pxxdB = 10*log10(pxx);
     
@@ -46,4 +46,6 @@ for ContMaximo = 1:N_Frec
     [Max_Bandas_dB(ContMaximo),pos] = max(pxxdB);
     Frec_Max(ContMaximo) = Frecuencias(pos);
     Frec_Corte1 = Frec_Corte2;
+    
+% **** Fijarse en los comentarios del commit ****    
 end
