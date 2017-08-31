@@ -34,6 +34,7 @@ info_barcos{5,1}{posicion}(4,1:35) = Firma;
 
 save ('info_barcos','info_barcos')
 
-
+% *******************************************************
+% *** por favor fijarse en los comentarios del commit ***
 
 
