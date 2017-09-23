@@ -6,11 +6,9 @@ En este repositorio montaremos los nuevos programa de SIDACAM parte 2. No podemo
 serie de instrucciones que nos ayuden al crecimiento organizado del respositorio y que esto no genere confusión. 
 
 
-1. Se debe empezar con el archivo principal. El master deberia estar conformado solamente por este archivo inicialmente.
+1. Se debe empezar con el archivo principal (el codigo main). La rama MASTER deberia estar conformado solamente por este archivo que estan leyendo y por el codigo main inicialmente.
 
-2. A medida que se van creando nuevas funciones, se abre una rama con el nombre de esta funcion y dentro de esta rama se crea la funcion. Esto
-para ir trabajando ordenadamente. Anteriormente haciamos ramas en las que se podian cambiar varias funciones en un pull request. Esto genera
-dificultad a la hora de observar todos los cambios. Si se pueden observar cambios solo por archivo se hace mas facil. 
+2. A medida que se van creando nuevas funciones, se abre una rama con el nombre de esta funcion y dentro de esta rama se crea la funcion. Esto para ir trabajando ordenadamente. Anteriormente haciamos ramas en las que se podian cambiar varias funciones en un pull request. Esto genera dificultad a la hora de observar todos los cambios. Si se pueden observar cambios solo por archivo se hace mas facil. 
 
 3. Solo al final cuando se sabe que la rama funciona perfectamente se hara la juntura (merging) entre el master y la rama madre.
 
@@ -43,9 +41,10 @@ Finaliza el Caso 2 con la grabación de todas los datos añadidos en la base de 
 
 __COMENTARIOS SOBRE EL COIDGO__
 
+SOBRE EL MAIN 
 
-L9 La idea es que el main Este en la rama 'master', no que el main se llame 'MASTER'. Creo que aún no han entendido la parte tematic del github, pero esta bien, uniré esta rama con la master.
-l32 Hice un pequeño cambio en el mensaje, nada especial
-l34-45 corregí la condicion para tiempo y frecuencia de muestreo   
-l46    modifique nombre de ruido ambiente, de  tal manera que no sea accesible por el usuario PD (tambien pueden usar la funcion 'datetime' que permite sumar y restar entre tiempos, bastante util)
+- L54, Revisar comentarion (funcion).
+
+- L79-83, Si el usuario mete un codigo erroneo, hacia donde va el programa (no se si sea prudente arreglarlo ahora).
+
 
