@@ -45,18 +45,14 @@ Finaliza el Caso 2 con la grabación de todas los datos añadidos en la base de 
 
 **Firma_acustica.m**
 
-l33 La variable promedio no tiene que ser inicializada, es un escalar. En matlab solo se inicializan (por velocidad) vectores y matrices en ceros, o variables globales y persistentes (por funcionamiento). 
+- El codigo va muy bien muchachos, lo siguiente son pequeñas anotaciones a hacer para que el codigo quede entendible para cualquier usuario.
 
-l35-36 (No se si esto es un ensayo o una fase A de la funcion pero...) No se porque la señal a analizar se extrae de 'code.waw', donde code es el codigo de la embarcacion dado en el MAIN.m, recordemos que el codigo es solo un nombre dado a la embarcación, una variable tipo string, con el cual podemos localizar la informacion que se tiene sobre esta embarcacion en el info_barcos.mat, NO ES un archivo de audio. Supongo que deberian estar usando un comando como S_blanco = audiorecorder(Frec_muestreo, nbits,nChannels). Como digo, no se si es porque estan ensayando.
+L18-20 Faltan comentarios para que se explique con palabras que se esta haciendo allí. 
 
-l61-63 no funcionarán deben ir por fuera del for. Estas son operaciones matriciales y pueden hacerse directa sin un for, es decir:
-    
-    Promedio = Max_Bandas_dB/N_Frec   % primero deben hallar el promedio para poder hacer esta operacion. 
-    Comparacion_Prom(:) = Max_Bandas_dB/Promedio;          
-    Firma(:) =1./(Comparacion_Prom.^100;    
-    Comparacion_Log(:) = log10(Comparacion_Prom); 
-    
-l39-58, este **for** es algo que se repetirá en la funcion deteccion.m (que no ha sido creada), se darán cuenta que tendran que repetirlo nuevamente, por eso mi propuesta fue encerrarlo en una funcion auxiliar que sea llamada cada vez que se necesite. Esto lo podemos hablar en por telefono y con computador al lado.
+L22-24 Faltan comentarios para que se explique con palabras que se esta haciendo allí. 
 
+L25-26 Faltan comentarios para que se explique con palabras que se esta haciendo allí. 
+
+El manual de usuario se encargará de introducir muy bien la base de datos y de explicar muy bien el algoritmo por funciones. pero el usuario que vea el codigo no vera en todo momento el manual de usuario. Eso es todo.
 
 
