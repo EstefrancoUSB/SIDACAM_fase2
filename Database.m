@@ -1,4 +1,7 @@
 %% Inicializacion de la base de datos.
+in = input('Desea RESTAURAR DESDE CERO la base de datos? SI/NO: ', 's');
+
+if strcmp(in, 'SI')== 1
 
 codigo_barco = cell(1,20);
 max_y_frec = cell(1,20);
@@ -28,3 +31,6 @@ Base_ruidos{1,1}(cambiar) = {'0'};
 % end
 save('info_barcos','info_barcos')
 save('Base_ruidos','Base_ruidos')
+
+end
+    
