@@ -6,11 +6,9 @@ En este repositorio montaremos los nuevos programa de SIDACAM parte 2. No podemo
 serie de instrucciones que nos ayuden al crecimiento organizado del respositorio y que esto no genere confusión. 
 
 
-1. Se debe empezar con el archivo principal. El master deberia estar conformado solamente por este archivo inicialmente.
+1. Se debe empezar con el archivo principal (el codigo main). La rama MASTER deberia estar conformado solamente por este archivo que estan leyendo y por el codigo main inicialmente.
 
-2. A medida que se van creando nuevas funciones, se abre una rama con el nombre de esta funcion y dentro de esta rama se crea la funcion. Esto
-para ir trabajando ordenadamente. Anteriormente haciamos ramas en las que se podian cambiar varias funciones en un pull request. Esto genera
-dificultad a la hora de observar todos los cambios. Si se pueden observar cambios solo por archivo se hace mas facil. 
+2. A medida que se van creando nuevas funciones, se abre una rama con el nombre de esta funcion y dentro de esta rama se crea la funcion. Esto para ir trabajando ordenadamente. Anteriormente haciamos ramas en las que se podian cambiar varias funciones en un pull request. Esto genera dificultad a la hora de observar todos los cambios. Si se pueden observar cambios solo por archivo se hace mas facil. 
 
 3. Solo al final cuando se sabe que la rama funciona perfectamente se hara la juntura (merging) entre el master y la rama madre.
 
@@ -41,22 +39,12 @@ Finaliza el Caso 2 con la grabación de todas los datos añadidos en la base de 
 - Caso 4: modifica la condición del While para salir de dicho ciclo.
 
 
-# COMENTARIOS SOBRE EL COIDGO
+__COMENTARIOS SOBRE EL COIDGO__
 
-**Firma_acustica.m**
+SOBRE EL MAIN 
 
-l33 La variable promedio no tiene que ser inicializada, es un escalar. En matlab solo se inicializan (por velocidad) vectores y matrices en ceros, o variables globales y persistentes (por funcionamiento). 
+- L54, Revisar comentarion (funcion).
 
-l35-36 (No se si esto es un ensayo o una fase A de la funcion pero...) No se porque la señal a analizar se extrae de 'code.waw', donde code es el codigo de la embarcacion dado en el MAIN.m, recordemos que el codigo es solo un nombre dado a la embarcación, una variable tipo string, con el cual podemos localizar la informacion que se tiene sobre esta embarcacion en el info_barcos.mat, NO ES un archivo de audio. Supongo que deberian estar usando un comando como S_blanco = audiorecorder(Frec_muestreo, nbits,nChannels). Como digo, no se si es porque estan ensayando.
-
-l61-63 no funcionarán deben ir por fuera del for. Estas son operaciones matriciales y pueden hacerse directa sin un for, es decir:
-    
-    Promedio = Max_Bandas_dB/N_Frec   % primero deben hallar el promedio para poder hacer esta operacion. 
-    Comparacion_Prom(:) = Max_Bandas_dB/Promedio;          
-    Firma(:) =1./(Comparacion_Prom.^100;    
-    Comparacion_Log(:) = log10(Comparacion_Prom); 
-    
-l39-58, este **for** es algo que se repetirá en la funcion deteccion.m (que no ha sido creada), se darán cuenta que tendran que repetirlo nuevamente, por eso mi propuesta fue encerrarlo en una funcion auxiliar que sea llamada cada vez que se necesite. Esto lo podemos hablar en por telefono y con computador al lado.
-
+- L79-83, Si el usuario mete un codigo erroneo, hacia donde va el programa (no se si sea prudente arreglarlo ahora).
 
 
