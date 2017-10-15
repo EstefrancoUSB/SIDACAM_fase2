@@ -6,11 +6,9 @@ En este repositorio montaremos los nuevos programa de SIDACAM parte 2. No podemo
 serie de instrucciones que nos ayuden al crecimiento organizado del respositorio y que esto no genere confusión. 
 
 
-1. Se debe empezar con el archivo principal. El master deberia estar conformado solamente por este archivo inicialmente.
+1. Se debe empezar con el archivo principal (el codigo main). La rama MASTER deberia estar conformado solamente por este archivo que estan leyendo y por el codigo main inicialmente.
 
-2. A medida que se van creando nuevas funciones, se abre una rama con el nombre de esta funcion y dentro de esta rama se crea la funcion. Esto
-para ir trabajando ordenadamente. Anteriormente haciamos ramas en las que se podian cambiar varias funciones en un pull request. Esto genera
-dificultad a la hora de observar todos los cambios. Si se pueden observar cambios solo por archivo se hace mas facil. 
+2. A medida que se van creando nuevas funciones, se abre una rama con el nombre de esta funcion y dentro de esta rama se crea la funcion. Esto para ir trabajando ordenadamente. Anteriormente haciamos ramas en las que se podian cambiar varias funciones en un pull request. Esto genera dificultad a la hora de observar todos los cambios. Si se pueden observar cambios solo por archivo se hace mas facil. 
 
 3. Solo al final cuando se sabe que la rama funciona perfectamente se hara la juntura (merging) entre el master y la rama madre.
 
@@ -41,18 +39,12 @@ Finaliza el Caso 2 con la grabación de todas los datos añadidos en la base de 
 - Caso 4: modifica la condición del While para salir de dicho ciclo.
 
 
-# COMENTARIOS SOBRE EL COIDGO
+__COMENTARIOS SOBRE EL COIDGO__
 
-**Firma_acustica.m**
+SOBRE EL MAIN 
 
-- El codigo va muy bien muchachos, lo siguiente son pequeñas anotaciones a hacer para que el codigo quede entendible para cualquier usuario.
+- L54, Revisar comentarion (funcion).
 
-L18-20 Faltan comentarios para que se explique con palabras que se esta haciendo allí. 
-
-L22-24 Faltan comentarios para que se explique con palabras que se esta haciendo allí. 
-
-L25-26 Faltan comentarios para que se explique con palabras que se esta haciendo allí. 
-
-El manual de usuario se encargará de introducir muy bien la base de datos y de explicar muy bien el algoritmo por funciones. pero el usuario que vea el codigo no vera en todo momento el manual de usuario. Eso es todo.
+- L79-83, Si el usuario mete un codigo erroneo, hacia donde va el programa (no se si sea prudente arreglarlo ahora).
 
 
