@@ -1,0 +1,57 @@
+- Para grabar el ruido de fondo con una fecha específica, consideramos que el usuario no puede ingresar el tiempo
+y la frecuenia de muestreo. Esto dificulta la pre-dimensión de las celdas que grabarán el ruido de fondo.
+
+	R/ Guardar no en un vector si no en una celda. El nombre será solamente la hora en que se tome la muestra.
+	La duración del ruido será establecida por nosotros, no por el usuario.
+
+	S/ La base de datos de ruido de fondo guarda cualquier dimensión de vector donde le corresponde. El tiempo
+	de la duración del ruido de fondo puede ser ingresada por el usuario y el nombre será guardado entre las
+	horas que se capturó el ruido. NO SE HA HECHO la parte de que el ruido de fondo grabe solo todo el día.
+
+
+- Las líneas de posición en Firma Acústica afectan cuando se llama ésta desde Grabación, consideramos que debieran ir 
+afuera de ésta función.
+
+	R/ Recordar que Grabación entra a Banco de Filtros y parametrización, no a Firma Acústica.
+
+	S/ Ya se solucionó esta parte, por ende la parte de Detección ya no entra en conflicto con el posicionamiento.
+
+- Consideramos que para poder hacer una detección utilizando distancias y porcentajes, las frecuencias principales
+ya deben estar desde antes de detectar en la base de datos. 
+
+	R/ Los umbrales en este código serán para identificar si una lancha está más allá o más acá del hidrófono.
+	
+- Las frecuencias principales y promedio de firma acústica se deben sacar desde la función Firma Acústica o mejor 
+una función aparte?
+
+	R/ Recordar una función matemática necesaria para sacar las frecuencias y niveles promedios de todas las 
+	grabaciones de las lanchas, para poderla comparar con la señal detectada.
+
+	S/ Para poder grabar los promedios, las desviaciones y demás, era necesario hacerlo por parte en vez de
+	todo en conjunto en una sola fórmula.
+
+- No se debe grabar la firma acústica siempre en la megamatriz porque perderíamos información de las embarcaciones.
+
+	S/ La firma acústica queda grabada en la base de datos de los barcos, sin embargo no borra información porque
+	se creo otro espacio para ella.
+
+- Es bueno grabar la velocidad y distancia a la que se grabaron los objetivos.
+
+- Sacar la firma acústica  (con una función fuera de la función Firma Acústica) de cada conjunto de grabaciones por 
+embarcación en Firma Acústica, la Detección sería más rápida.
+
+	S/ Ya se realió esta función y se llama "Firma_acustica". Graba la Firma (ya parametrizada) en un vector que
+	corresponde a la misma posición de la lancha que se almacena. Esta función toma todas las grabaciones de la
+	lancha y deja una sola firma acústica con el promedio de todos los máximos. Además saca el promedio de las 
+	frecuencias.
+
+- Las frecuencias principales se sacarán con la misma función nueva de Firma Acústica, se hará con la desviación
+estándar y el promedio.
+
+	S/ La nueva función FIRMA ACÚSTICA puede grabar el promedio de máximos, el promedio de frecuencias,
+	la desviación estándar de la frecuencias y la firma parametrizada.
+
+	PD/ Hay una situacióin con este punto y es que si tomamos en cuenta que las frecuencias principales serán las de
+	"menos desviación estándar", pero la desviación cambia de magnitud según el rango de frecuencia que se esté
+	analizando, esto dará como resultado que las frecuencias de menor desviación estándar serán SIEMPRE las 
+	tres frecuencias más bajas. Para este inconveniente se usa el "coeficiente de variación".
