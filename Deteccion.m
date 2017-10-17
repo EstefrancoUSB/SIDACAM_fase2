@@ -34,8 +34,13 @@ end
 %Determinación de cuál correlación dio mejor resultado para comparar y determinar la posible 
 %lancha.
 stem(Corr_vector)
-[~,pos] = max(Corr_vector); 
-Embarcacion = info_barcos{1,1}{pos};    
+[Val,pos] = max(Corr_vector); 
+if Val > 0.85
+    Embarcacion = info_barcos{1,1}{pos}; 
+else
+    Embarcacion = '//Ninguna//.';
+end
+  
 
 
 
