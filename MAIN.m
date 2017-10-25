@@ -69,7 +69,6 @@ while condicion == 1
             
             %% Extracción de Firmas Acústicas
         case 2
-           
             flag = 1;
             %Ingresando el código de la embarcación
             code = input('Ingrese código de la embarcación: ', 's');
@@ -114,7 +113,7 @@ while condicion == 1
             %Extrae la firma acústica y frecuencias principales de la embarcación
             %que ha sido recién analizada
             Firma_acustica (posicion,N_Frec)
-          
+            
             
             %% Deteccion de Blancos
         case  3
