@@ -1,26 +1,23 @@
 %====ALGORITMO PARA LA DETECCION DE BLANCOS EN EL MAR========
-%
-%
-% ---------------------------------------------------------------
+%---------------------------------------------------------------
 % Luis Alberto Tafur Jimenez, decano.ingenierias@usbmed.edu.co
 % Luis Esteban Gomez, estebang90@gmail.com
 % David Perez Zapata, b_hh@hotmail.es
 %
-%Este script funcionara como Master, contiene el código principal, desde el
-%cual se ejecuta la grabación de ruido de fondo, la extracción de firmas
-%acústicas, y se le da inicio al estado de análisis de detección en tiempo
-%real de embarcaciones.
+% Este script funcionara como Master, contiene el código principal, desde el
+% cual se ejecuta la grabación de ruido de fondo, la extracción de firmas
+% acústicas, y se le da inicio al estado de análisis de detección en tiempo
+% real de embarcaciones.
 
 %% Inicializacion de variables principales
-Dim_fft = 4096;        %double, Mínima longitud de ventana para óptima resolución en FFT.[]
-Frec_Corte1 = 300;     %double, Frecuencia mínima de interés. [Hz]
-N_Frec = 35;           %double, Número de frecuencias para determinar la firma acústica. []
-Step=50;               %double, Paso del filtro pasabanda. [Hz]
-condicion = 1;         %double, Flag.
-realtime = 10;         %double, Duración de la grabación de la señal en tiempo real.
-Frec_Muestreo = 48000; %double, Sampling Rate de 48000.
-% Mientras "condicion sea "1" el programa funcionara, al tomar el valor de
-% "2" se finaliza.
+Dim_fft = 4096;        %Double. Mínima longitud de ventana para óptima resolución en FFT.[]
+Frec_Corte1 = 300;     %Double. Frecuencia mínima de interés. [Hz]
+N_Frec = 35;           %Double. Número de frecuencias para determinar la firma acústica. []
+Step=50;               %Double. Paso del filtro pasabanda. [Hz]
+condicion = 1;         %Double. Flag.
+realtime = 10;         %Double. Duración de la grabación de la señal en tiempo real.
+Frec_Muestreo = 48000; %Double. Sampling Rate de 48000.
+% Mientras "condicion sea "1" el programa funcionara, al tomar el valor de "2" se finaliza.
 while condicion == 1
     
     modo = menu('Escoja la modalidad de funcionamiento del programa.',...
@@ -69,6 +66,7 @@ while condicion == 1
             
             %% Extracción de Firmas Acústicas
         case 2
+            
             flag = 1;
             %Ingresando el código de la embarcación
             code = input('Ingrese código de la embarcación: ', 's');
@@ -104,7 +102,8 @@ while condicion == 1
                 end
                 
                 %Confirmación para más grabaciones de la misma lancha.
-                Mas_firmas = input('¿Desea grabar más recorridos de esta lancha? SI/NO: ', 's');
+                Mas_firmas = input('¿Desea grabar más recorridos de esta lancha? SI/NO: ',...
+                    's');
                 if strcmp(Mas_firmas, 'NO')== 1
                     flag = 2;
                     disp('__________')
@@ -118,7 +117,8 @@ while condicion == 1
             %% Deteccion de Blancos
         case  3
             
-            [Embarcacion] = Deteccion(realtime,Frec_Muestreo,Dim_fft, Frec_Corte1, N_Frec, Step);
+            [Embarcacion] = Deteccion(realtime,Frec_Muestreo,Dim_fft, Frec_Corte1, N_Frec,...
+                Step);
             fprintf('La embarcación detectada puede ser: %s \n', Embarcacion)
             
         case  4

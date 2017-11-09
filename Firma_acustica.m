@@ -5,11 +5,20 @@ function  Firma_acustica (posicion,N_Frec)
 % Luis Esteban Gomez, estebang90@gmail.com
 % David Perez Zapata, b_hh@hotmail.es
 %
-% Funci贸n encargada de extraer la firma ac煤stica de la se帽al promediando todos los m谩ximos
-% por frecuencia de todos los recorridos de cada embarcaci贸n previamente almacenados en
-% Database. Adem谩s extrae las frecuencias principales de cada embarcaci贸n
-% teniendo en cuenta la menor desviaci贸n est谩ndar por frecuencia. En esta sesi贸n se
-%parametriza la firma ac煤stica y se almacena en la base de datos.
+% Funci髇 encargada de extraer la firma ac鷖tica de la se馻l promediando todos los m醲imos
+% por frecuencia de todos los recorridos de cada embarcaci髇 previamente almacenados en
+% Database. Adem醩 extrae las frecuencias principales de cada embarcaci髇
+% teniendo en cuenta la menor desviaci髇 est醤dar por frecuencia. En esta sesi髇 se
+% parametriza la firma ac鷖tica y se almacena en la base de datos.
+%
+%ENTRADAS
+%posicion          Double. Valor que indica la posici髇 de la embarcaci髇 ingresada.[]
+%N_Frec            Double. N鷐ero de frecuencias para determinar la firma ac鷖tica. []
+%SALIDAS
+%Promedio_maximos  Double. Promedio de m醲imos de las se馻les de la embarcaci髇. [dB]
+%Promedio_frec     Double. Promedio de frecuencias de las se馻les de la embarcaci髇. [Hz]
+%Frec_principal    Double. Vector con las 3 frecuencias principales de cada embarcaci髇 [Hz]
+%Firma             Double. Vector que almacena la firma ac鷖tica de la se馻l. []
 
 %Carga de algunos vectores a utilizar.
 load info_barcos
@@ -18,7 +27,7 @@ Promedio_frec = zeros(1,35);
 Frec_principal = zeros(1,3);
 
 for Cont_Maximos = 1:N_Frec
-    %Sacando los m谩ximos promedios de cada ancho de banda.
+    %Sacando los m醲imos promedios de cada ancho de banda.
     sumatoria = sum (info_barcos{2,1}{posicion}(1,Cont_Maximos,:));
     Promedio_maximos(Cont_Maximos) = sumatoria/(info_barcos{3,1}(posicion));
     info_barcos{5,1}{posicion}(1,Cont_Maximos) = Promedio_maximos(Cont_Maximos);
@@ -27,23 +36,24 @@ for Cont_Maximos = 1:N_Frec
     sumatoria = sum (info_barcos{2,1}{posicion}(2,Cont_Maximos,:));
     Promedio_frec(Cont_Maximos) = sumatoria/(info_barcos{3,1}(posicion));
     info_barcos{5,1}{posicion}(2,Cont_Maximos) = Promedio_frec(Cont_Maximos);
+    %Calculando desviaciones est醤dar.
     info_barcos{5,1}{posicion}(3,Cont_Maximos) = std(info_barcos{2,1}{posicion}...
         (2,Cont_Maximos,1:(info_barcos{3,1}(posicion))));
-    end
+end
 
-%Extrayendo y almacenando las frecuencias principales seg煤n su desviaci贸n est谩ndar.
+%Extrayendo y almacenando las frecuencias principales seg鷑 su desviaci髇 est醤dar.
 Desv_estandar = info_barcos{5,1}{posicion}(3,:);
 for frec_principales = 1:3
-        Pos_min = find(Desv_estandar == min(Desv_estandar));
+    Pos_min = find(Desv_estandar == min(Desv_estandar));
     Frec_principal(frec_principales) = info_barcos{5,1}{posicion}(2,Pos_min(1));
     Desv_estandar(Pos_min) = 100;
 end
 info_barcos{4,1}{posicion} = Frec_principal;
-
-%Parametrizaci贸n de la firma ac煤stica.
+%Parametrizaci髇 de la firma ac鷖tica.
 maximo = max (Promedio_maximos);
 Firma = 1./(Promedio_maximos/maximo);
 info_barcos{5,1}{posicion}(4,1:N_Frec) = Firma;
 
 save ('info_barcos','info_barcos')
+
 

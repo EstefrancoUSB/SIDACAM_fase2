@@ -7,19 +7,20 @@ function [Max_Bandas_dB,Frec_Max] = Banco_filtros (S_Blanco,Frec_Muestreo, N_Fre
 % Luis Esteban Gomez, estebang90@gmail.com
 % David Perez Zapata, b_hh@hotmail.es
 %
-% Función encargada de extraer los niveles máximos y las frecuencias a las
-% que corresponden cada máximo de la señal de entrada.
-
+% Función encargada de extraer los niveles máximos y las frecuencias a las que corresponden 
+% cada máximo de la señal de entrada.
+%
 %ENTRADAS
-%S_Blanco         String, contiene el codigo de la embarcacion.
-%Frec_Muestreo
-%N_Frec
-%Dim_fft        double,
-%Frec_Corte1
-%Step
+%S_Blanco       Double. Señal de la embarcación ingresada.
+%code           String. Contiene el codigo de la embarcacion.
+%Dim_fft        Double. Mínima longitud de ventana para óptima resolución en FFT.[]
+%Frec_Corte1    Double. Frecuencia mínima de interés. [Hz]
+%N_Frec         Double. Número de frecuencias para determinar la firma acústica. []
+%Step           Double. Paso del filtro pasabanda. [Hz]
+%Frec_Muestreo  Double. Frecuencia de muetreo de la señal: 48000. [Hz]
 %SALIDAS
-%Max_Bandas_dB
-%Frec_Max
+%Max_Bandas_dB  Double. vector con los niveles máximos por bandas de la señal filtrada [dB]
+%Frec_Max       Double. vector con las frecuencias de los niveles máximo [Hz]
 
 
 Orden_Filtro = 8;

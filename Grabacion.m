@@ -1,4 +1,4 @@
-   function [Ruido_fondo, Hora_fondo] = Grabacion(tiempo,Frec_muestreo)
+function [Ruido_fondo, Hora_fondo] = Grabacion(tiempo,Frec_muestreo)
 
 %GRABACIÓN
 %------------------------------------------------------------------------------
@@ -10,12 +10,12 @@
 % con la señal de la embarcación. De esta manera aplicar la ecuación de sonar pasivo y
 % determinar umbrales de detección.
 %
-% ENTRADAS
-% n_bits                    Double. Profunidad en bits de la grabación. [bits]
-% n_canales                 Double. Número de canales de la grabación.
-% SALIDAS
-% Ruido_fondo               Double. Señal capturada por el receptor.
-% Hora_fondo                Double. Fecha y hora de la señal de ruido de fondo capturada.
+%ENTRADAS
+%tiempo            Double. tiempo durante el cual se grabará señal externa. [s]
+%Frec_Muestreo  Double. frecuencia de muetreo de la señal: 48000. [Hz]
+%SALIDAS
+%Ruido_fondo       Double. Señal capturada por el receptor.
+%Hora_fondo        String. Fecha y hora de la señal de ruido de fondo capturada.
 
 
 n_bits = 16;      % Tamaño de la muestra en bits
